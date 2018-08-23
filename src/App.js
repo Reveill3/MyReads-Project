@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   handleChange = (event, id) => {
-    console.log(event.target.value, id)
+    console.log(this.state);
   }
 
   render() {

@@ -7,10 +7,10 @@ const Book = props => {
       <div className='book-top'>
         <img alt={props.bookinfo.title}src={props.bookinfo.imageLinks.thumbnail} className='book-cover' />
         <div className='book-shelf-changer'>
-          <select onChange={(event) => props.changeshelf(event)}>
-            <option value='current' selected={props.bookinfo.shelf === 'current'}>Current</option>
-            <option value='want' selected={props.bookinfo.shelf === 'want'}>Want To Read</option>
-            <option value='read' selected={props.bookinfo.shelf === 'read'}>Read Already</option>
+          <select onChange={(event) => props.changeshelf(event)} defaultValue={props.bookinfo.shelf} initial={props.bookinfo.shelf}>
+            <option value='current'>Current</option>
+            <option value='want'>Want To Read</option>
+            <option value='read'>Read Already</option>
           </select>
         </div>
       </div>
