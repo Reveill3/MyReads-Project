@@ -12,7 +12,7 @@ const ReadShelf = props => {
 }
 
 ReadShelf.propTypes = {
-  current: PropTypes.array.isRequired
+  read: PropTypes.array.isRequired
 }
 
 export default ReadShelf

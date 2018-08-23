@@ -12,7 +12,7 @@ const WantShelf = props => {
 }
 
 WantShelf.propTypes = {
-  current: PropTypes.array.isRequired
+  want: PropTypes.array.isRequired
 }
 
 export default WantShelf
