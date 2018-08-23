@@ -19,6 +19,9 @@ class App extends Component {
         <CurrentShelf current={this.state.current}/>
         <WantShelf want={this.state.want}/>
         <ReadShelf read={this.state.read}/>
+      <div className='open-search'>
+        <a href='' />
+      </div>
 
         </div>
     );
