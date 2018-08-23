@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import CurrentShelf from './current.js';
+import WantShelf from './want.js';
+import ReadShelf from './read.js';
 
 class App extends Component {
   state = {
     current: ['nggnmAEACAAJ', 'sJf1vQAACAAJ','evuwdDLfAyYC'],
-    wante: [],
-    read: []
+    want: ['evuwdDLfAyYC','nggnmAEACAAJ', 'sJf1vQAACAAJ'],
+    read: ['sJf1vQAACAAJ','evuwdDLfAyYC','nggnmAEACAAJ']
   }
   render() {
     return (
@@ -15,6 +17,9 @@ class App extends Component {
           <h1>MyReads</h1>
         </header>
         <CurrentShelf current={this.state.current}/>
+        <WantShelf want={this.state.want}/>
+        <ReadShelf read={this.state.read}/>
+
         </div>
     );
   }
