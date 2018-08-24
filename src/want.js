@@ -6,7 +6,11 @@ const WantShelf = props => {
   return (
     <div className='bookshelf'>
       <h1 className='bookshelf-title'>Want To Read</h1>
-      <BookList className='bookshelf-books' currentids={props.want} handlechangeshelf={props.shelfchange} />
+      <BookList className='bookshelf-books'
+        currentbooks={props.want}
+        handlechangeshelf={props.shelfchange}
+        render={props.render}
+        shelf='wantToRead'/>
     </div>
   )
 }

@@ -6,7 +6,11 @@ const ReadShelf = props => {
   return (
     <div className='bookshelf'>
       <h1 className='bookshelf-title'>Read Already</h1>
-      <BookList className='bookshelf-books' currentids={props.read} handlechangeshelf={props.shelfchange} />
+      <BookList className='bookshelf-books'
+        currentbooks={props.read}
+        handlechangeshelf={props.shelfchange}
+        render={props.render}
+        shelf='read'/>
     </div>
   )
 }
