@@ -29,7 +29,7 @@ class App extends Component {
   handleChange = (event, book, currentshelf) => {
     console.log(event);
     BooksAPI.update(book, event.target.value);
-    this.filterBooks()
+    setTimeout(this.filterBooks(), 1500)
 
   }
 
