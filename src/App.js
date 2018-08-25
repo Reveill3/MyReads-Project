@@ -4,12 +4,16 @@ import CurrentShelf from './current.js';
 import WantShelf from './want.js';
 import ReadShelf from './read.js';
 import * as BooksAPI from './BooksAPI.js';
+import { Link, Route } from 'react-router-dom';
+import Search from './search.js';
 
 class App extends Component {
   state = {
     current: [],
     want: [],
-    read: []
+    read: [],
+    query: '',
+    search: []
   }
 
   filterBooks = () => {
@@ -17,7 +21,8 @@ class App extends Component {
         this.setState(() => {return({
           current: books.filter(book => book.shelf === 'currentlyReading'),
           want: books.filter(book => book.shelf === 'wantToRead'),
-          read: books.filter(book => book.shelf === 'read')
+          read: books.filter(book => book.shelf === 'read'),
+          search: books.filter(book => book.title.includes('Li'))
         })})
       })
   }
@@ -26,31 +31,47 @@ class App extends Component {
     this.filterBooks()
   }
 
+ handleSearch = () => {
+   return('test')
+ }
+
   handleChange = (event, book, currentshelf) => {
-    console.log(event);
     BooksAPI.update(book, event.target.value);
-    setTimeout(this.filterBooks(), 1500)
+    setTimeout(this.filterBooks(), 1000)
 
   }
 
   render() {
+    console.log(this.state.search);
     return (
       <div className="list-books-content">
-        <header className="list-books-title">
-          <h1>MyReads</h1>
-        </header>
-        <CurrentShelf current={this.state.current}
-                      shelfchange={this.handleChange}
-                      />
-        <WantShelf want={this.state.want}
-                    shelfchange={this.handleChange}
-                    />
-        <ReadShelf read={this.state.read}
-                    shelfchange={this.handleChange}
-                    />
-      <div className='open-search'>
-        <a href='' />
-      </div>
+
+        <Route exact path='/' render={() => (
+          <div>
+            <header className="list-books-title">
+              <h1>MyReads</h1>
+            </header>
+            <CurrentShelf current={this.state.current}
+                          shelfchange={this.handleChange}
+                          />
+            <WantShelf want={this.state.want}
+                        shelfchange={this.handleChange}
+                        />
+            <ReadShelf read={this.state.read}
+                        shelfchange={this.handleChange}
+                        />
+            <div className='open-search'>
+              <Link to='/search'></Link>
+            </div>
+          </div>
+        )}/>
+
+        <Route path='/search' render={() => (
+          <Search results={this.state.search} handlechange={this.handleChange}/>
+        )}/>
+
+
+
 
         </div>
     );
