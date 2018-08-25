@@ -24,7 +24,7 @@ class App extends Component {
           want: books.filter(book => book.shelf === 'wantToRead'),
           read: books.filter(book => book.shelf === 'read'),
         })})
-        if (query != '') {
+        if (query !== '') {
           this.setState({
             search: books.filter(book => book.title.toLowerCase().includes(query))
           })
@@ -39,11 +39,19 @@ class App extends Component {
  handleTyping = (event) => {
    const value = event.target.value;
    this.setState(() => {
+     if (value === '') {
      return(
        {
+         search: [],
          query: value
        }
-     )
+     )} else {
+       return(
+         {
+           query: value
+         }
+       )
+     }
    }
  );
 
