@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import Book from './book.js';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import BookList from './bookList.js';
@@ -11,7 +10,7 @@ return (
       <Link to='/' className='close-search'></Link>
       <input type='text'
         value={props.query}
-        onChange={props.handletyping} 
+        onChange={props.handletyping}
         placeholder='Enter Book Title'/>
     </div>
       <div className='search-books-results'>

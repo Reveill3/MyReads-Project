@@ -17,7 +17,6 @@ class App extends Component {
   }
 
   filterBooks = (query) => {
-    console.log(query);
       BooksAPI.getAll().then(books => {
         this.setState(() => {return({
           current: books.filter(book => book.shelf === 'currentlyReading'),
