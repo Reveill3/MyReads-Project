@@ -10,6 +10,8 @@ return (
     <div className='search-books-bar'>
       <Link to='/' className='close-search'></Link>
       <input type='text'
+        value={props.query}
+        onChange={props.handletyping} 
         placeholder='Enter Book Title'/>
     </div>
       <div className='search-books-results'>
@@ -23,6 +25,8 @@ return (
 Search.propTypes = {
   handlechange: PropTypes.func.isRequired,
   results: PropTypes.array.isRequired,
+  query: PropTypes.string.isRequired,
+  handletyping: PropTypes.func.isRequired
 };
 
 export default Search

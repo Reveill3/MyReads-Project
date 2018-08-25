@@ -16,14 +16,19 @@ class App extends Component {
     search: []
   }
 
-  filterBooks = () => {
+  filterBooks = (query) => {
+    console.log(query);
       BooksAPI.getAll().then(books => {
         this.setState(() => {return({
           current: books.filter(book => book.shelf === 'currentlyReading'),
           want: books.filter(book => book.shelf === 'wantToRead'),
           read: books.filter(book => book.shelf === 'read'),
-          search: books.filter(book => book.title.includes('Li'))
         })})
+        if (query != '') {
+          this.setState({
+            search: books.filter(book => book.title.toLowerCase().includes(query))
+          })
+        }
       })
   }
 
@@ -31,18 +36,30 @@ class App extends Component {
     this.filterBooks()
   }
 
- handleSearch = () => {
-   return('test')
+ handleTyping = (event) => {
+   const value = event.target.value;
+   this.setState(() => {
+     return(
+       {
+         query: value
+       }
+     )
+   }
+ );
+
+ this.filterBooks(value.toLowerCase())
  }
 
   handleChange = (event, book, currentshelf) => {
+    this.setState({
+      query: ''
+    });
     BooksAPI.update(book, event.target.value);
     setTimeout(this.filterBooks(), 1000)
 
   }
 
   render() {
-    console.log(this.state.search);
     return (
       <div className="list-books-content">
 
@@ -67,7 +84,10 @@ class App extends Component {
         )}/>
 
         <Route path='/search' render={() => (
-          <Search results={this.state.search} handlechange={this.handleChange}/>
+          <Search results={this.state.search}
+            handlechange={this.handleChange}
+            handletyping={this.handleTyping}
+            query={this.state.query}/>
         )}/>
 
 
