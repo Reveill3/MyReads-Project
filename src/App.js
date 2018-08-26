@@ -12,16 +12,16 @@ class App extends Component {
     current: [],
     want: [],
     read: [],
-    query: '',
     search: []
   }
 
   filterBooks = (query) => {
       BooksAPI.getAll().then(books => {
-        this.setState(() => {return({
+        this.setState((currentState) => {return({
           current: books.filter(book => book.shelf === 'currentlyReading'),
           want: books.filter(book => book.shelf === 'wantToRead'),
           read: books.filter(book => book.shelf === 'read'),
+          search: currentState.search
         })})
         if (query !== '') {
           this.setState({
@@ -58,13 +58,15 @@ class App extends Component {
  }
 
   handleChange = (event, book, currentshelf) => {
-    this.setState({
-      query: ''
-    });
-    BooksAPI.update(book, event.target.value);
-    setTimeout(this.filterBooks(), 1000)
+    const currentValue = event.target.value
+    this.setState(() => {
+      BooksAPI.update(book, currentValue).then(() => this.filterBooks()).then(
+        this.setState({
+          query: ''
+        })
+      )
 
-  }
+  })}
 
   render() {
     return (
