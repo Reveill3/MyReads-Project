@@ -11,10 +11,10 @@ return (
       <input type='text'
         value={props.query}
         onChange={props.handletyping}
-        placeholder='Enter Book Title'/>
+        placeholder='Enter Book Subject'/>
     </div>
       <div className='search-books-results'>
-        <BookList shelf='' currentbooks={props.results} handlechangeshelf={props.handlechange}/>
+        <BookList currentstate={props.currentstate} currentbooks={props.results} handlechangeshelf={props.handlechange}/>
       </div>
   </div>
 
@@ -23,7 +23,7 @@ return (
 
 Search.propTypes = {
   handlechange: PropTypes.func.isRequired,
-  results: PropTypes.array.isRequired,
+  results: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
   query: PropTypes.string.isRequired,
   handletyping: PropTypes.func.isRequired
 };

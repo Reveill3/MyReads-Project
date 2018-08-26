@@ -12,10 +12,21 @@ class App extends Component {
     current: [],
     want: [],
     read: [],
-    search: []
+    search: [],
+    query: ''
   }
 
   filterBooks = (query) => {
+    if (query) {
+      BooksAPI.search(query).then(books =>{
+        this.setState(
+          {
+            search: books
+          }
+        );
+      }
+      )
+    } else {
       BooksAPI.getAll().then(books => {
         this.setState((currentState) => {return({
           current: books.filter(book => book.shelf === 'currentlyReading'),
@@ -23,13 +34,8 @@ class App extends Component {
           read: books.filter(book => book.shelf === 'read'),
           search: currentState.search
         })})
-        if (query !== '') {
-          this.setState({
-            search: books.filter(book => book.title.toLowerCase().includes(query))
-          })
-        }
       })
-  }
+  }}
 
   componentDidMount(){
     this.filterBooks()
@@ -54,14 +60,14 @@ class App extends Component {
    }
  );
 
- this.filterBooks(value.toLowerCase())
+ this.filterBooks(value)
  }
 
   handleChange = (event, book, currentshelf) => {
     const currentValue = event.target.value
     this.setState(() => {
-      BooksAPI.update(book, currentValue).then(() => this.filterBooks()).then(
-        this.setState({
+      BooksAPI.update(book, currentValue).then(() => this.filterBooks()).then(() => (
+        {
           query: ''
         })
       )
@@ -96,7 +102,8 @@ class App extends Component {
           <Search results={this.state.search}
             handlechange={this.handleChange}
             handletyping={this.handleTyping}
-            query={this.state.query}/>
+            query={this.state.query}
+            currentstate={this.state}/>
         )}/>
 
 
